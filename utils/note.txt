@@ -1,0 +1,459 @@
+Export:
+export "ok=h" "ok" ok ok=h
+export d="ok" "d"=ok "d="ok
+
+the biggest problem i will find in single quotes $? will not print make a variable that change the value of process exit and the it 
+start with 0 at first and then it get change by the process exiting
+add all whitespaces in strchr parsing
+every exit will down up the shlvl 
+
+fix those:
+lexer '"'"'" not error even if not close ignore in the big quote
+''"$PWD$|$HOME"
+
+maybe i will split the cmd with split for enum PIPE
+To do:
+echo with $ var and -n no newline and $ add a var $?
+cd ~ ~/ and their path in pwd and env
+parser of "" '' add them in one node with the word
+export and their option "" '' $?
+unset
+exit fix u gotta write it multiple time
+Ctrl-\
+handle $? check the old process how he got ended number of signal
+
+handle heredoc in parsing << $PWD should not expand but "<< $PWD" should expand
+
+printing "$PWD" it print but printing '$PWD' doesn't print
+
+todo
+gad toknizer of "" and '' and their function of adding to node and skip "" ''
+also fix spaces in "" ("okay son" l) the problem in the while of function add_node
+now fix the single quote
+also fix when you try to echo and export try don't print "" ''
+check if "" are closed in tokinizer
+first check if the cmd that u are runing have the permission
+
+cd ~/
+cd ~
+cd /
+c$d   and $d=d
+
+in the end of the infinity loop in the main free all shiit
+
+check error if direcotory not exist or not accessible
+if (chdir() !=0)
+  error();
+
+gad blan variable $ so you can read it
+
+negad blan if pwd == / and u did cd .. || cd / bla malloc jdid dial '/'
+
+check if those work cd "~/" the only one works is cd "/Users/hkaddour/Movies" u should give the absolute path to do so for "" and '' cd "/"
+also after cd to a directory check if u have the permission to do so
+
+cd ".."
+
+/Users/hkaddour/
+/Users/hkaddour
+hkaddour/
+hkaddour
+////
+/
+
+example of parsing "":
+"h"l"h"
+"d""g"
+
+
+
+fix cd    space
+
+try this one in "": ls "hich" lo 'what'
+I think i have to make a ptr = "hich" and then take off ""
+
+can you change env var or unset them
+
+pseudo code:
+In parsing :
+- first i have to take off "" '' in the node of the cmd
+- change $ with it's value
+- make a struct node of cmd like ls -la | grep a this is two cmd
+- make a struct node for redirection for their cmd and files
+- to know how much cmd u got to run u need to count 
+
+parsing:
+$? fix it in "" and simple
+$? for '' just print it
+
+
+fix ls it keep letting it everytime i enter an empty args 
+fix $ in the parsing part
+
+fix now '' should not show out of "" only inside ""
+fix now "" should not show out of '' only inside ''
+fix now '$j' but out of '' should print the var and inside '"$PWD"'
+still have to fix some error in "'$VIM' $PWD '$co'"$SHLVL'$SU'
+change the cmd that are uppercase to lowercase
+you gotta free the node of the cmd so when u run the cmd again with empty show nothing new readline
+free anything you end with
+fix this one: "echo 'cool'|"|nn
+fix ; should not work
+fix ""$$$$ parsing for dolla in add_node
+echo '''"'$PWD'"''' try this one also if (s_quot <= 2)
+lexer in the add_node
+gad blan ${PWD} "${PWD}" '${PWD}' and example like this
+shellvl everytime ./minishell i run a program
+
+fix this one:
+''$$$$PWD
+
+$ sign error:
+"$l"$PWD $VIM
+"$l"$PWD$VIM
+try:
+"$l $VIM"$PWD
+"$l$$"$$$PWD
+"$$|$$"
+"$$$"
+"$"
+
+check if u write the cmd uppercase
+
+To do:
+- finish parsing $ and lexer errors also gad some part like if pipe count to know if it a simple cmd or pipe and for > save file and shiit also for one cmd split it like "ls" "-la" like that
+- finish cd and echo and exit and export some shiit on it
+- learn git by pushing pull request and shiit to get the budge in github page
+- rest on the parsing part is $ in single quotes 
+- fix when i do Ctrl c the readline function lost all prev values only when the program face a infinity loop
+
+cmd to use:
+ps: to see all the shell running
+
+To do today:
+- fix single and double quote in parsing and $ and lexer
+- fix and read a cmd in **array
+- fix the main and take off the comment and make file and norminette and free leaks
+
+To do tomorrow:
+- in lexer '"' "'" should not print an error 
+- i have to fix some shiit tokenizer alone and then lexer then parsing and put every cmd in a node and then executing
+- still have to fix $? in parsing part and count lenght of str to allocate
+- fix heredoc in tokenizer << not expand 
+- start in lexer with error color and fix all other problem i put in this note
+- gad double pointer cmd struct and parse cmd and input file and output and file
+- start implementing cd 
+- fix main norminette and structure 
+- Leaks
+- cd -
+- gad popd and pushd
+- read a config file at first and then run the program
+- error handling minishell: cd not ...
+- protect all malloc
+- signal handling
+- cd should change the file name in $Minishell>
+- add cmd didn't execut in prompt msg with color
+- cd . while deleting the directory fix
+- fix export "ls -la" it will not split should split with space
+- when you finish in tokenizer and parsing i should free all the nodes to start a new cmd
+- take the spaces out in the end and the begining before tokenizer
+export ls="echo llsl jdkd "
+example:
+'dds' lsl
+"dkjdk" <<<
+
+Example of parsing cmd:
+ls -la
+ls > file > g 
+
+To do:
+- fix tokenizer again every expression in a token don't add something else with it
+- Gad all parser to have a valid cmd
+- add other thing in lexer like ls <<|
+- what if we start with | ls | grep a
+- ghilad check blanat gh lexer like "| ls | grep a |" this one will fuck me over in parsing when i count the pipes 
+- i still got to change $? in tokenizer
+- Parsing maybe i should make the output files
+- heredoc should be open in parsing part
+
+**Error should i handle:
+- check position of tokens 
+- | ls |  pipe at first and the end
+- > << >> < redirection at first and the end 
+- > << >> < with no file after 
+
+#Error handling
+"'$PATH'$PATH" == double free
+strchr is not working "    |ls" should take spaces at first "" just to show the str
+<<< && >>> double free
+in echo when i print the **cmd i should put a space between them
+in $USER_ should print a space empty
+$PATH+ double free
+adfe'adfe" double free
+;; double free
+$"USER" should ignore $ and print USER
+$_PATH should print a space empty
+$0 should print program name
+$3789 should ignore first number and print the rest 789 but if 0 was first don't ignore, print program name and number
+cat > <<l error > <<l same
+add history if the line was empty or space it should not add to history
+heredoc if u do ** ls << cat | > it should work the heredoc and then print the error msg and the cmd ls should not work but << work
+add to all tokenizer \t and whitespaces not just space
+negad free ndoe of tokenizer if not allocate and u try to free error
+heredoc in parsing
+signals in minishell and signals in heredoc
+color in error
+ft_strncmp i should take off if we cmp between hich and hicham it returns it
+sigs in prompt and heredoc and take off the ^C and all that shiit
+
+HEREDOC expand in readline not in heredoc prompt:
+cat << "$HOME"   == $HOME
+cat << '$HOME'   == $HOME
+cat << "$""HOME"   == $HOME
+cat << $"HOME"   == HOME
+cat << $'HOME'   == HOME
+cat << "$"HOME   == $HOME
+cat << '$'HOME   == $HOME
+cat << "$""HOME"   == $HOME
+cat << '$''HOME'   == $HOME
+
+HEREDOC expand inside the heredoc prompt:
+cat << HOME && $HOME will expand the $vars this is the only one that should expand and the other not
+cat << "HOME" && '$HOME' and the above ones will not expand the $var inside also the one that don't have the var value empty line
+enter in prompt "$PWD'l'" it should not take of the quotes
+
+fix if cat << l << d if ctrl c will end all the process and show the other pipe return a value to quite the process
+i will fix the above problem with putting the check num in a file
+also in history add if the line is the same at the last one it should not entre it just a strncmp should work fine
+
+
+Negad env -i 
+Fix when i entre in the prompt it execute the old cmd
+env with args should not works
+
+
+fix << << << file leaks also change the file cat didn't exit
+fix cat << l > g
+fix cat << l >> z reapeat the content of the file it reads from >> not in heredoc <<
+fix cat << l > ok should not create the file and if file exist should not put the output in the file
+fix cat << l >> ok should not create the file and if file exist should not put the output of heredoc in the file
+ECHO big 
+maybe if i change pwd and i print pwd it always print the old pwd not the new one the valid one
+export === and other operators like that
+if an error happen in tokenizer don't execute **** echo | |
+change prompt in case if an error should use the str of err
+env of export are different of env of env
+handle signals in the main
+pipe of << heredoc i closed the file 
+return of $? in child process should be change if something happen
+in parsing return a var that checks if there's an error to not enter to execution
+in tokenizer count the len that u gonna alloc not a random number
+env when u print don't print the one that don't have =
+env ==== error a=1 a+=4 append and erro should not exit and it sort
+work in *
+makefile
+fucntion update and look good name and shiit and norm
+pipeline
+every builtin with here error func
+pwd if not exist print dial system
+cmd permission in child process
+prompt if PWD not exist take dial oldpwd
+work in last time log
+<< << ctrl c just do it in waitpid and the status will give u how did u exit to see 
+leakssss
+Segfault in cd -
+cd /
+env redirection to file
+gad prompt shower in case of unset in the PWD
+and pwd will show the pwdofmysys
+open file of heredoc pipe giving me and error msg:
+ > minishell(21125,0x109afb5c0) malloc: *** error for object 0x7fdae1408680: pointer being freed was not allocated
+ > minishell(21125,0x109afb5c0) malloc: *** set a breakpoint in malloc_error_break to debug
+ it's just because when ctrl c in parsing will not go to execution
+export if i started with number 9kdl=kk error but if kl3=4 works also operators only numbers and alphabet
+kill -s SIGSEGV cmd to send signals to a process
+protect malloc
+^C to not show and start ne9i lcode
+heredoc and main ctrl \ and ctrl C not to show
+
+Todo:
+- gad cd .. and path
+- tst all builtin if there's any sig and address and malloc in cd
+- norminette and function name and optimize the code
+- tokenizer count len of malloc
+- tokenizer and parsing calloc
+- leaks
+- add * in tokenizer and and parsing and builtin too maybe
+prompt changer if didn't find HOME it print and the path
+norminette of libft
+init pipe ptr in cmd with zero in parsing
+
+signal dial heredoc exit fork
+unset error handling smae as export
+export _ and error number in middle
+cat ^M
+redirection << > <<
+env head ptr unseted
+cmd not found in pipes
+exit arg number should be between 256 range if not devision
+lexer $?
+cd double free
+close pipe heredoc if there's no cmd
+any cmd in the pipe failed exit the pipeline
+protect malloc to the main not in just the function
+malloc make a function in the main if any malloc got error exit it the program
+env | grep OLD get all env print it out 
+echo hey | grep y not working
+history still fucked up
+ls > nari | grep a < nari
+still exit status number
+cat << l << d << z
+cd minishell-tester/ show empty pwd
+
+
+unset and export error:
+number in first
+plus sign
+equal
+miness
+hashtag
+
+
+
+
+
+error rest:
+norminette and files and func names and var
+protect malloc with exit
+exit number modulo and shit
+redirection in pipe first one can read from file but the other output in red and pipe file but only reads from pipe
+and test other error in cd and builtin
+and redline line dial color when i put a lot of char it goes to first
+cd there's a sigfault there maybe in free_data_running_process and double free
+
+**init tab_pipe in parsing
+**don't change the ptr of cd - in till u checked if the file excist or not
+
+**Still error in cd***
+ls
+cd ~/mishl_util/
+cd minishl/
+double free
+
+count len of data in heredco the data that gonna sign in the file NOW ***
+maybe heredoc child process if malloc failed should exit with a code to exit the parent too
+dup2 should be protect
+heredoc got some problem cat << l
+fix this ksjk | echo $? should tele3 error msg
+env print me the var that dont have value
+
+cat | ls | cat ls first
+cat << l > f1 | << l > f2 cat
+echo ~
+env -i when unset a var double free
+export if don't have a value don;t show the =""
+old export tst empty when reinit dont show in env only export
+env should not sort only export
+env -i SHLVL +111 free some not allocated
+take of permission to a dir and then run cmd and cd .. should work also if u cd to that dir should get error permission denied
+exit with number
+when i exit i have to free
+if i unset SHLVL and i execute minishell two and i should have and SHLVL=1
+don't free pwd_sys env env -i that i made cuz they are not allocated
+
+
+fix cat > f1 | << l
+still need to protect malloc of alloc
+Makefile
+cat << l > f1 | << l > f2 cat
+-->> the promlem is the first hrdoc is closed so the second one the only one is working
+when i unset everything in env segfault happen in new prompt i should check if it null return 
+i will not add address of exec fork child in free implementation
+*** also strdup protect and itoa if 0 exit the program and free too
+
+**ERRORs:
+export hey coo=l hey+=ll
+
+
+leaks implementation :
+free in loop:
+  token
+  parsing cmd
+free in end of program:
+  env
+  pwd_of_mysys
+
+i will add a check for calloc that show if i will add the node to garbage collector or not
+still have leaks
+cd .
+protect open and all sys call
+
+================
+**add those ones:
+  -fsanitize=address
+  *echo -n
+  *pwd + -anything
+
+NEW ONES:
+  * heredoc sinal ctr c rlcatch signals = 1 should = 0 ig
+  * echo $
+  * echo $'ls|pwd'
+  * << $USER$USER
+  * echo "ss          $|        ee"
+  * << $?
+  * cd -                         (pwd error)
+  * ls -jlksdjl   still give me 0 as a $?
+func is_quote_helper fix this one echo $"l"'ls|pwd'
+$0000 segfault
+
+
+**New ones:
+exit --10
+exit +1
+<< ' ' enter alot of spaces
+echo | exit
+cat | exit
+exit 000000000000000000000000000000000000000
+env > zbek
+echo "na3aam " >> zbi | grep na3aam
+echo "zaz" > out_1 | echo "loz" >> out_2
+echo "ac" >> out_1 | << pp
+env -i  (env: -i: No such file or directory)
+cd --
+export error like $ in first
+exit in parent process should return a status i can't get it back
+take off join struct
+* >> '
+* >> "
+* echo "$'hey'"
+* export ;a=ok
+* export .a=ok
+* export ,a=ok
+* export '"'=ok
+* export " "=ok
+* export "'"=ok
+* export *c=ok
+* export =ok
+* export '|A=ok'
+* echo "$''''''PWD"
+* export zzzzzzz=
+exit 00000000000000000000000000000000000009
+<< "ksd" not expend i should intialize the variable
+exit status % 255
+cho "ac" >> out_1 | << pp
+mal 7abbek | 1kbkjsda | ls
+cmd not found ^
+change count_cmd of pipe and change lexer of pipe
+
+still need to fix alot of pipes error in fork
+
+two minishell or 3 ./minishell > file
+
+**********
+expand
+in single quote just take off the single quote in first and last
+in double quote just take off the quote in first and last and expand $
+in dollar just expand it and check after it if is there any special character
+if the prev one was << heredoc next one should not expand
+
+after that lexer_pt2 and then parser
